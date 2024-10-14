@@ -6,9 +6,11 @@ import createSession from '../actions/createSession'
 import { useFormState } from 'react-dom';
 import { toast } from 'react-toastify'
 import { useRouter } from 'next/navigation';
+import { useAuth } from '@/context/authContext';
 
 const Login = () => {
     const [ state, formAction ] = useFormState(createSession, {});
+    const { isAuthenticated, setIsAuthenticated } = useAuth();
 
     const router = useRouter();
 
@@ -16,6 +18,7 @@ const Login = () => {
         if(state.error) toast.error(state.error)
         if(state.success) {
             toast.success('Login success')
+            setIsAuthenticated(true);
             router.push('/')
         }
     }, [state]);
