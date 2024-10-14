@@ -4,11 +4,13 @@ import getAllRooms from './actions/getAllRooms';
 
 export default async function Home() {
   const rooms = await getAllRooms();
+
   return (
     <>
     <Heading title={'Available Rooms'}/>
-      {rooms.length > 0 ? (
+      {rooms.length > 0 && rooms ? (
         rooms.map((room) => {
+          if(!room) return null;
          return (
           <RoomCard room={room} key={room.$id}/>
          )
